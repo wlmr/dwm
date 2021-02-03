@@ -8,8 +8,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=11" };
-static const char dmenufont[]       = "monospace:size=11";
+static const char *fonts[]          = { "Inconsolata:size=10" };
+static const char dmenufont[]       = "Inconsolata:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -46,7 +46,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -72,13 +72,15 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
-static const char *firefoxcmd[]  = { "firefox", NULL };
+static const char *chromiumcmd[]  = { "chromium", NULL };
 static const char *volmut[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
 static const char *volinc[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
 static const char *voldec[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
 static const char *brightness_inc[] = { "xbacklight", "-inc", "10", NULL };
 static const char *brightness_dec[] = { "xbacklight", "-dec", "10", NULL };
 static const char *lock_screen[] = { "slock", NULL };
+static const char *bluetooth_connector[] = {"bluetooth-connector", NULL };
+static const char *sound_ctl[] = {"st", "-t", "sound-control", "-g", "120x34", "-e", "pulsemixer", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -116,13 +118,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-  { MODKEY|ShiftMask,             XK_w,      spawn,   {.v = firefoxcmd } },
+  { MODKEY|ShiftMask,             XK_w,      spawn,               {.v = chromiumcmd } },
   { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = voldec } },
   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = volinc } },
-  { 0,                            XF86XK_AudioMute, spawn, {.v = volmut } },
-  { 0,                            XF86XK_MonBrightnessUp, spawn, {.v = brightness_inc } },                            
-  { 0,                            XF86XK_MonBrightnessDown, spawn, {.v = brightness_dec } },                            
-  { MODKEY|ShiftMask,             XK_l,     spawn,          {.v = lock_screen } }
+  { 0,                            XF86XK_AudioMute, spawn,        {.v = volmut } },
+  { 0,                            XF86XK_MonBrightnessUp, spawn,  {.v = brightness_inc } },                            
+  { 0,                            XF86XK_MonBrightnessDown, spawn,{.v = brightness_dec } },                            
+  { MODKEY|ShiftMask,             XK_l,     spawn,                {.v = lock_screen } },
+  { MODKEY|ShiftMask,             XK_b,     spawn,                {.v = bluetooth_connector } },
+  { MODKEY|ShiftMask,             XK_m,     spawn,                {.v = sound_ctl } }
 };
 
 /* button definitions */
